@@ -1,0 +1,50 @@
+﻿namespace Stealer
+{
+    using System;
+    using System.Linq;
+    using System.Text;
+    using System.Reflection;
+
+    public class Spy
+    {
+        public string StealFieldInfo(string classToInvestigate, params string[] fieldsToGet)
+        {
+            Type typeOfClass = Type.GetType(classToInvestigate);
+            FieldInfo[] gotFields = typeOfClass.GetFields(BindingFlags.Public | BindingFlags.NonPublic
+                | BindingFlags.Instance | BindingFlags.Static);
+            Object hackerObject = Activator.CreateInstance(typeOfClass, new object[] { });
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"Class under investigation: {typeOfClass.FullName}");
+            foreach (var item in gotFields.Where(x => fieldsToGet.Contains(x.Name)))
+            {
+                sb.AppendLine($"{item.Name} = {item.GetValue(hackerObject)}");
+            }
+            return sb.ToString().Trim();
+        }
+
+        public string AnalyzeAcessModifiers(string className)
+        {
+            Type typeOfClass = Type.GetType(className);
+            FieldInfo[] publicFields = typeOfClass.GetFields(BindingFlags.Public 
+                | BindingFlags.Instance | BindingFlags.Static);
+            MethodInfo[] methodsInfo = typeOfClass.GetMethods(BindingFlags.Public | BindingFlags.NonPublic 
+                | BindingFlags.Instance | BindingFlags.Static);
+            StringBuilder sb = new StringBuilder();
+
+            foreach (FieldInfo field in publicFields)
+                sb.AppendLine($"{field.Name} must be private!");
+
+            foreach (MethodInfo method in methodsInfo)
+            {
+                if (method.Name.StartsWith("get") && method.IsPrivate)
+                    sb.AppendLine($"{method.Name} have to be public!");
+            }
+            foreach (MethodInfo method in methodsInfo)
+            {
+                if (method.Name.StartsWith("set") && method.IsPublic)
+                    sb.AppendLine($"{method.Name} have to be private!");
+            }
+            return sb.ToString().Trim();
+        }
+    }
+}
