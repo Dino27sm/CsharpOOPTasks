@@ -33,7 +33,7 @@
         }
 
         [Test]
-        public void RorotMng_Constructor_Initial()
+        public void RobotMng_Constructor_Initial()
         {
             RobotManager rm1 = new RobotManager(70);
 
@@ -42,7 +42,7 @@
         }
 
         [Test]
-        public void RorotMng_Constructor_Initial_Zero_Allowed()
+        public void RobotMng_Constructor_Initial_Zero_Allowed()
         {
             RobotManager rm1 = new RobotManager(0);
 
@@ -51,7 +51,7 @@
         }
 
         [Test]
-        public void RorotMng_Constructor_Negative_Capacity_Throw_Excep()
+        public void RobotMng_Constructor_Negative_Capacity_Throw_Excep()
         {
             Assert.Throws<ArgumentException>(() => new RobotManager(-8));
         }
