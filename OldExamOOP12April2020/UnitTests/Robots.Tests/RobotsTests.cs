@@ -12,7 +12,7 @@
         }
 
         [Test]
-        public void Rorot_Constructor_Initial()
+        public void Robot_Constructor_Initial()
         {
             Robot r1 = new Robot("rname", 100);
 
@@ -22,7 +22,7 @@
         }
 
         [Test]
-        public void Rorot_Property_Correct_Change()
+        public void Robot_Property_Correct_Change()
         {
             Robot r1 = new Robot("rname", 100);
             r1.Battery = 80;
