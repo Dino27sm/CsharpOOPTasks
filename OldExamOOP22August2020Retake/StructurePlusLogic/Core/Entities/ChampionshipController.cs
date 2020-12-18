@@ -54,7 +54,6 @@ namespace EasterRaces.Core.Entities
                 throw new InvalidOperationException(string.Format(ExceptionMessages.DriverNotFound, driverName));
 
             aRace.AddDriver(aDriver);
-
             return string.Format(OutputMessages.DriverAdded, driverName, raceName);
         }
 
@@ -71,7 +70,6 @@ namespace EasterRaces.Core.Entities
                 car = new SportsCar(model, horsePower);
 
             this.cars.Add(car);
-
             return string.Format(OutputMessages.CarCreated, car.GetType().Name, model);
         }
 
